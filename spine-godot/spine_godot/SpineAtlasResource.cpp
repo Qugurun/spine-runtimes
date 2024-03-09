@@ -69,7 +69,7 @@ public:
 
 #if VERSION_MAJOR > 3
 		const String prefix = "res:/";
-		auto i = path.find(prefix);
+		auto i = fixed_path.find(prefix);
 		Ref<Texture2D> texture = null;
 		if (i < 0) {
 			Ref<Image> image=Image::load_from_file(fixed_path);
