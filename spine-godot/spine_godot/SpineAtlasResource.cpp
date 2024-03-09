@@ -30,6 +30,7 @@
 #include "SpineAtlasResource.h"
 #include "SpineRendererObject.h"
 #include "core/io/json.h"
+#include "core/io/image.h"
 #include "scene/resources/texture.h"
 #include <spine/TextureLoader.h>
 
@@ -65,11 +66,21 @@ public:
 		Error error = OK;
 		auto fixed_path = fix_path(String(path.buffer()));
 
+
 #if VERSION_MAJOR > 3
-		Ref<Texture2D> texture = ResourceLoader::load(fixed_path, "", ResourceFormatLoader::CACHE_MODE_REUSE, &error);
+		const String prefix = "res:/";
+		auto i = path.find(prefix);
+		Ref<Texture2D> texture = null;
+		if (i < 0) {
+			Ref<Image> image=Image::load_from_file(fixed_path);
+			texture = ImageTexture::create_from_image(p_image);
+		} else {
+			texture = ResourceLoader::load(fixed_path, "", ResourceFormatLoader::CACHE_MODE_REUSE, &error);
+		}
 #else
-		Ref<Texture> texture = ResourceLoader::load(fixed_path, "", false, &error);
+		Ref<Texture> texture = ResourceLoader::load(fixed_path, "", false, &error);			
 #endif
+
 		if (error != OK || !texture.is_valid()) {
 			ERR_PRINT(vformat("Can't load texture: \"%s\"", String(path.buffer())));
 			auto renderer_object = memnew(SpineRendererObject);
