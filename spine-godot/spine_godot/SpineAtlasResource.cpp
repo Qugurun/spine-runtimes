@@ -47,8 +47,8 @@ public:
 		if (path.size() > 5 && path[4] == '/' && path[5] == '/') return path;
 		const String prefix = "res:/";
 		auto i = path.find(prefix);
+		if (i < 0) return path;
 		auto sub_str_pos = i + prefix.size() - 1;
-		if (sub_str_pos < 0) return path;
 		auto res = path.substr(sub_str_pos);
 
 		if (!EMPTY(res)) {
