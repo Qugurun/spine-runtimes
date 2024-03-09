@@ -31,6 +31,7 @@
 #include "SpineRendererObject.h"
 #include "core/io/json.h"
 #include "core/io/image.h"
+#include "scene/resources/image_texture.h"
 #include "scene/resources/texture.h"
 #include <spine/TextureLoader.h>
 
@@ -70,10 +71,10 @@ public:
 #if VERSION_MAJOR > 3
 		const String prefix = "res:/";
 		auto i = fixed_path.find(prefix);
-		Ref<Texture2D> texture = null;
+		Ref<Texture2D> texture;
 		if (i < 0) {
 			Ref<Image> image=Image::load_from_file(fixed_path);
-			texture = ImageTexture::create_from_image(p_image);
+			texture = ImageTexture::create_from_image(image);
 		} else {
 			texture = ResourceLoader::load(fixed_path, "", ResourceFormatLoader::CACHE_MODE_REUSE, &error);
 		}
