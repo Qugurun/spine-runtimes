@@ -123,7 +123,7 @@ static bool checkBinary(const char *binaryData, int length) {
 
 Error SpineSkeletonFileResource::load_from_file(const String &path) {
 	Error error = OK;
-	if (path.ends_with(".spjson") || path.ends_with(".spine-json")) {
+	if (path.ends_with(".spjson") || path.ends_with(".spine-json") || path.ends_with(".json")) {
 		json = FileAccess::get_file_as_string(path, &error);
 		if (error != OK) return error;
 		if (!checkJson(json.utf8())) return ERR_INVALID_DATA;
