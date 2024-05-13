@@ -1053,7 +1053,7 @@ void SpineSprite::draw() {
 #else
 	default_font = control->get_font(SNAME("font"), SNAME("Label"));
 #endif
-	memfree(control);
+	memdelete(control);
 
 	float editor_scale = EditorInterface::get_singleton()->get_editor_scale();
 	float inverse_zoom = 1 / get_viewport()->get_global_canvas_transform().get_scale().x * editor_scale;
